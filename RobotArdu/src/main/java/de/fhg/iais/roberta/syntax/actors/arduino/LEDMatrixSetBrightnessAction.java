@@ -49,7 +49,7 @@ public class LEDMatrixSetBrightnessAction<V> extends Action<V> {
      * @param comment added from the user,
      * @return read only object of class {@link LEDMatrixSetBrightnessAction}
      */
-    private static <V> LEDMatrixSetBrightnessAction<V> make(String port, Expr<V> brightness, BlocklyBlockProperties properties, BlocklyComment comment) {
+    public static <V> LEDMatrixSetBrightnessAction<V> make(String port, Expr<V> brightness, BlocklyBlockProperties properties, BlocklyComment comment) {
         return new LEDMatrixSetBrightnessAction<>(port, brightness, properties, comment);
     }
 

@@ -55,7 +55,7 @@ public class LEDMatrixImageAction<V> extends Action<V> {
      * @param comment added from the user,
      * @return read only object of class {@link LEDMatrixImageAction}
      */
-    private static <V> LEDMatrixImageAction<V> make(
+    public static <V> LEDMatrixImageAction<V> make(
         String port,
         String displayImageMode,
         Expr<V> valuesToDisplay,

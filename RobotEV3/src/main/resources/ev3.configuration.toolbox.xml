@@ -1,18 +1,23 @@
 <toolbox_set id='toolbox' style='display: none'>
     <category name='TOOLBOX_ACTION' svg='true'>
-        <block type='robBrick_motor_big' />
-        <block type='robBrick_motor_middle' />
-        <block type='robBrick_actor' />
+        <block type='robConf_motor'></block>
+        <block type='robConf_motormiddle'></block>
+        <block type='robConf_consumer'></block>
+        <block type='robConf_lcd'></block>
+        <block type='robConf_buzzer'></block>
+        <block type='robConf_rgbled'></block>
     </category>
     <category name='TOOLBOX_SENSOR' svg='true'>
-        <block type='robBrick_ultrasonic'></block>
-        <block type='robBrick_colour'></block>
-        <block type='robBrick_infrared'></block>
-        <block type='robBrick_touch'></block>
-        <block type='robBrick_gyro'></block>
-        <block type='robBrick_sound' />
-        <block type='robBrick_compass' />
-        <block type='robBrick_irseeker' />
-        <block type='robBrick_htcolour' />
+        <block type='robConf_key'></block>
+        <block type='robConf_colour'></block>
+        <block type='robConf_sound'></block>
+        <block type='robConf_gyro'></block>
+        <block type='robConf_encoder'></block>
+        <block type='robConf_htcolour'></block>
+        <block type='robConf_touch'></block>
+        <block type='robConf_ultrasonic'></block>
+        <block type='robConf_compass'></block>
+        <block type='robConf_infrared'></block>
+        <block type='robConf_irseeker'></block>
     </category>
 </toolbox_set>

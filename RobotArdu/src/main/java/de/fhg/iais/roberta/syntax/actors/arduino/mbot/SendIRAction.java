@@ -44,7 +44,7 @@ public class SendIRAction<V> extends Action<V> {
      * @param comment added from the user,
      * @return read only object of class {@link SendIRAction}
      */
-    private static <V> SendIRAction<V> make(Expr<V> message, BlocklyBlockProperties properties, BlocklyComment comment) {
+    public static <V> SendIRAction<V> make(Expr<V> message, BlocklyBlockProperties properties, BlocklyComment comment) {
         return new SendIRAction<>(message, properties, comment);
     }
 

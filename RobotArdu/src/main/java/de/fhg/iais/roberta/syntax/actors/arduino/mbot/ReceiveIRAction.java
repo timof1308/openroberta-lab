@@ -35,7 +35,7 @@ public class ReceiveIRAction<V> extends Action<V> {
      * @param comment added from the user,
      * @return read only object of class {@link ReceiveIRAction}
      */
-    private static <V> ReceiveIRAction<V> make(BlocklyBlockProperties properties, BlocklyComment comment) {
+    public static <V> ReceiveIRAction<V> make(BlocklyBlockProperties properties, BlocklyComment comment) {
         return new ReceiveIRAction<>(properties, comment);
     }
 

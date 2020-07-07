@@ -1,14 +1,16 @@
 <toolbox_set id='toolbox' style='display: none'>
     <category name='TOOLBOX_ACTION' svg='true'>
-        <block type='robBrick_motor_big' />
-        <block type='robBrick_actor' />
+        <block type='robConf_motor'></block>
+        <block type='robConf_consumer'></block>
+        <block type='robConf_lcd'></block>
+        <block type='robConf_buzzer'></block>
     </category>
     <category name='TOOLBOX_SENSOR' svg='true'>
-        <block type='robBrick_touch' />
-        <block type='robBrick_sound' />
-        <block type='robBrick_light' />
-        <block type='robBrick_ultrasonic' />
-        <block type='robBrick_colour' />
-        <block type='robBrick_htcolour' />
+        <block type='robConf_key'></block>
+        <block type='robConf_colour'></block>
+        <block type='robConf_sound'></block>
+        <block type='robConf_htcolour'></block>
+        <block type='robConf_touch'></block>
+        <block type='robConf_ultrasonic'></block>
     </category>
 </toolbox_set>

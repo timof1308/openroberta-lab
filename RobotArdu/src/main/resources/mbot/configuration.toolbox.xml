@@ -1,11 +1,14 @@
-<toolbox_set id="toolbox" style="display: none">
-    <category name="TOOLBOX_ACTION" svg="true">
-        <block type="robBrick_motor_geared" />
-        <block type="robBrick_led_matrix" />
+<toolbox_set id='toolbox' style='display: none'>
+    <category name='TOOLBOX_ACTION' svg='true'>
+        <block type='robConf_motor' ></block>
+        <block type='robConf_ledmatrix' ></block>
+        <block type='robConf_rgbled'></block>
+        <block type='robConf_buzzer'></block>
     </category>
-    <category name="TOOLBOX_SENSOR" svg="true">
-        <block type="robBrick_ultrasonic" />
-        <block type="robBrick_infrared" />
-        <block type="robBrick_light" />
+    <category name='TOOLBOX_SENSOR' svg='true'>
+        <block type='robConf_ultrasonic' ></block>
+        <block type='robConf_infrared' ></block>
+        <block type='robConf_light' ></block>
+        <block type='robConf_key' ></block>
     </category>
 </toolbox_set>

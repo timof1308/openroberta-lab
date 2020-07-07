@@ -33,7 +33,7 @@ public final class FlameSensor<V> extends Sensor<V> {
      * @param comment added from the user,
      * @return read only object of class {@link FlameSensor}
      */
-    static <V> FlameSensor<V> make(String port, BlocklyBlockProperties properties, BlocklyComment comment) {
+    public static <V> FlameSensor<V> make(String port, BlocklyBlockProperties properties, BlocklyComment comment) {
         return new FlameSensor<>(port, properties, comment);
     }
 

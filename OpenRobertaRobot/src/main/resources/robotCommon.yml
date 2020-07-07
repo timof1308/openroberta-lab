@@ -840,6 +840,7 @@ configuration:
   MOTOR: [robConf_motor]
   OTHER: [robBrick_actor]
   PIN_VALUE: [robSensors_pin_getSample]
+  PLACEHOLDER: [robConf_placeholder]
   POTENTIOMETER: [robConf_potentiometer]
   PULSE: [robConf_pulse, robBrick_pulse]
   RELAY: [robConf_relay]
