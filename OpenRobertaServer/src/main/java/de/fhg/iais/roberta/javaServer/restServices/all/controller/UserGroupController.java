@@ -52,10 +52,8 @@ public class UserGroupController {
     }
 
     /**
-     * Returns all information about a single user group. It requires a user to be logged in.
-     * The end point expects a UserGroupRequest with the fields:
-     * - groupName The name of the user group
-     * The user group is determined by the currently logged in user (either by being its owner of by being a member of it)
+     * Returns all information about a single user group. It requires a user to be logged in. The end point expects a UserGroupRequest with the fields: -
+     * groupName The name of the user group The user group is determined by the currently logged in user (either by being its owner of by being a member of it)
      * and the provided group name.
      *
      * @param dbSession The database session
@@ -107,9 +105,8 @@ public class UserGroupController {
     }
 
     /**
-     * Returns a list of all user groups of the currently logged in user. It requires a user to be logged in.
-     * The end point expects a BaseRequest with no special fields.
-     * All user groups that the currently logged in user owns are returned.
+     * Returns a list of all user groups of the currently logged in user. It requires a user to be logged in. The end point expects a BaseRequest with no
+     * special fields. All user groups that the currently logged in user owns are returned.
      *
      * @param dbSession The database session
      * @param fullRequest The request data
@@ -162,11 +159,9 @@ public class UserGroupController {
     }
 
     /**
-     * Creates a user group. It requires a user to be logged in.
-     * The end point expects a ChangeUserGroupRequest with the fields:
-     * - groupName The name the new user group shall have
-     * - groupMemberCount The number of members the user group shall initially be generated with.
-     * The newly created user group will be set with the currently logged in user as its owner.
+     * Creates a user group. It requires a user to be logged in. The end point expects a ChangeUserGroupRequest with the fields: - groupName The name the new
+     * user group shall have - groupMemberCount The number of members the user group shall initially be generated with. The newly created user group will be set
+     * with the currently logged in user as its owner.
      *
      * @param dbSession The database session
      * @param fullRequest The request data
@@ -193,7 +188,7 @@ public class UserGroupController {
             }
 
             String groupName = request.getGroupName();
-            int initialMembers = request.getGroupMemberCount();
+            int initialMembers = request.getGroupMemberNames().size(); //TODO: Phillip - für dich
 
             UserGroup userGroup = userGroupProcessor.createGroup(groupName, loggedInUser, initialMembers);
             if ( !userGroupProcessor.succeeded() ) {
@@ -216,10 +211,9 @@ public class UserGroupController {
     }
 
     /**
-     * Deletes all specified user groups. It requires a user to be logged in.
-     * The end point expects a UserGroupsRequest with the fields:
-     * - groupNames A JSONArray of Strings with the names of the user groups that shall be deleted.
-     * The user groups is determined by the provided user group names and the currently logged in user, who needs to be their owner.
+     * Deletes all specified user groups. It requires a user to be logged in. The end point expects a UserGroupsRequest with the fields: - groupNames A
+     * JSONArray of Strings with the names of the user groups that shall be deleted. The user groups is determined by the provided user group names and the
+     * currently logged in user, who needs to be their owner.
      *
      * @param dbSession The database session
      * @param fullRequest The request data
@@ -265,11 +259,9 @@ public class UserGroupController {
     }
 
     /**
-     * Adds new members to a user group. It requires a user to be logged in.
-     * The end point expects a ChangeUserGroupRequest with the fields:
-     * - groupName The name the user group, for which new members shall be generated.
-     * - groupMemberCount The number of members, that shall additionally be generated.
-     * The currently logged in user must be the owner of the specified user group.
+     * Adds new members to a user group. It requires a user to be logged in. The end point expects a ChangeUserGroupRequest with the fields: - groupName The
+     * name the user group, for which new members shall be generated. - groupMemberCount The number of members, that shall additionally be generated. The
+     * currently logged in user must be the owner of the specified user group.
      *
      * @param dbSession The database session
      * @param fullRequest The request data
@@ -297,7 +289,7 @@ public class UserGroupController {
             }
 
             String groupName = request.getGroupName();
-            int newMemberCount = request.getGroupMemberCount();
+            int newMemberCount = request.getGroupMemberNames().size(); //TODO: Phillip - für dich
 
             UserGroup userGroup = userGroupProcessor.getGroup(groupName, loggedInUser);
             if ( !userGroupProcessor.succeeded() ) {
@@ -326,11 +318,9 @@ public class UserGroupController {
     }
 
     /**
-     * Deletes all specified members of the specified user group. It requires a user to be logged in.
-     * The end point expects a UserGroupMembersRequest with the fields:
-     * - groupName The name the user group, for which new members shall be deleted.
-     * - groupMemberAccounts A JSONArray of Strings with the names of the members that shall be deleted.
-     * The currently logged in user must be the owner of the specified user group.
+     * Deletes all specified members of the specified user group. It requires a user to be logged in. The end point expects a UserGroupMembersRequest with the
+     * fields: - groupName The name the user group, for which new members shall be deleted. - groupMemberAccounts A JSONArray of Strings with the names of the
+     * members that shall be deleted. The currently logged in user must be the owner of the specified user group.
      *
      * @param dbSession The database session
      * @param fullRequest The request data
@@ -383,12 +373,10 @@ public class UserGroupController {
     }
 
     /**
-     * Resets the passwords of all specified members of the specified user group to its default value, which is their account name.
-     * It requires a user to be logged in.
-     * The end point expects a UserGroupMembersRequest with the fields:
-     * - groupName The name the user group, for which's specified members the passwords shall be reseted.
-     * - groupMemberAccounts A JSONArray of Strings with the names of the members that shall get their password reseted.
-     * The currently logged in user must be the owner of the specified user group.
+     * Resets the passwords of all specified members of the specified user group to its default value, which is their account name. It requires a user to be
+     * logged in. The end point expects a UserGroupMembersRequest with the fields: - groupName The name the user group, for which's specified members the
+     * passwords shall be reseted. - groupMemberAccounts A JSONArray of Strings with the names of the members that shall get their password reseted. The
+     * currently logged in user must be the owner of the specified user group.
      *
      * @param dbSession The database session
      * @param fullRequest The request data
