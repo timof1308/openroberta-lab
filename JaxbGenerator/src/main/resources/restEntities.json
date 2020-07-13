@@ -560,7 +560,7 @@
       "description": "the request description for the /userGroup/createUserGroup and /userGroup/addGroupMembers REST request, returns UserGroupResponse",
       "properties": [
         { "name": "groupName", "type": "String" },
-        { "name": "groupMemberCount", "type": "int" }
+        { "name": "groupMemberNames", "type": "String[]" }
       ]
     },
     {
