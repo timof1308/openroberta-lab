@@ -311,21 +311,43 @@ define(['exports', 'util', 'log', 'message', 'program.controller', 'program.mode
         if (result.rc === "ok") {
             var programSrc = result.compiledCode;
             var program = JSON.parse(programSrc);
-            interpreter = WEBVIEW_C.getInterpreter(program);
-            if (interpreter !== null) {
-                GUISTATE_C.setConnectionState("busy");
-                blocklyWorkspace.robControls.switchToStop();
-                try {
-                    runStepInterpreter();
-                } catch (error) {
-                    interpreter.terminate();
-                    interpreter = null;
-                    alert(error);
+            switch (GUISTATE_C.getRobot()) {
+            case "wedo":
+                interpreter = WEBVIEW_C.getInterpreter(program);
+                if (interpreter !== null) {
+                    GUISTATE_C.setConnectionState("busy");
+                    blocklyWorkspace.robControls.switchToStop();
+                    try {
+                        //runStepWedo();
+                        runStepInterpreter();
+                    } catch (error) {
+                        interpreter.terminate();
+                        interpreter = null;
+                        alert(error);
+                    }
                 }
+                break;
+            case "orb":
+                interpreter = WEBVIEW_C.getOrbInterpreter(program);
+                if (interpreter !== null) {
+                    GUISTATE_C.setConnectionState("busy");
+                    blocklyWorkspace.robControls.switchToStop();
+                    try {
+                        //runStepWedo();
+                        runStepInterpreter();
+                    } catch (error) {
+                        interpreter.terminate();
+                        interpreter = null;
+                        alert(error);
+                    }
+                }
+                break;
+            default:
+                // TODO
             }
-            // TODO
         }
     }
+
 
     function runStepInterpreter() {
         while (!interpreter.isTerminated() && !reset) {

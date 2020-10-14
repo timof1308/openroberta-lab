@@ -1,12 +1,18 @@
-define(['exports', 'guiState.controller', 'interpreter.interpreter', 'interpreter.robotWeDoBehaviour', 'log', 'blockly', 'jquery'], function(exports,
-    GUISTATE_C, INTERPRETER, WEDO_B, LOG, Blockly, $) {
+define(['exports', 'guiState.controller', 'interpreter.interpreter', 'interpreter.robotWeDoBehaviour', 'interpreter.robotOrbBehaviour', 'log', 'blockly', 'jquery'], function(exports,
+    GUISTATE_C, INTERPRETER, WEDO_B, ORB_R, LOG, Blockly, $) {
+
+/*define( ['exports', 'guiState.controller', 'interpreter.interpreter', 'interpreter.robotWeDoBehaviour', 'interpreter.robotOrbBehaviour', 'util', 'log', 'message', 'blockly', 'jquery'], function( exports,
+    GUISTATE_C, WEDO_I, WEDO_R, ORB_R, UTIL, LOG, MSG, Blockly, $ ) {*/
 
     var ready;
     var aLanguage;
     var webViewType;
     var interpreter;
     var theRobotBehaviour;
-
+/*
+    wedo = new WEDO_R.RobotWeDoBehaviour(jsToAppInterface, jsToDisplay);
+    orb = new ORB_R.RobotOrbBehaviour(jsToAppInterface, jsToDisplay);
+    */
     /**
      * Init webview
      */
@@ -86,7 +92,53 @@ define(['exports', 'guiState.controller', 'interpreter.interpreter', 'interprete
                 } else {
                     theRobotBehaviour.update(data);
                 }
-            } else {
+            } else if ( data.target == "orb" && GUISTATE_C.getRobot() == "orb" ) {
+                  if ( data.type == "scan" && data.state == "appeared" ) {
+                      $( '#show-available-connections' ).trigger( 'add', data );
+                  } else if ( data.type == "scan" && data.state == "error" ) {
+                      $( '#show-available-connections' ).modal( 'hide' );
+                  } else if ( data.type == "scan" && data.state == "disappeared" ) {
+                      console.log( data );
+                  } else if ( data.type == "connect" && data.state == "connected" ) {
+                      $( '#show-available-connections' ).trigger( 'connect', data );
+                      orb.update( data );
+                      GUISTATE_C.setConnectionState( "wait" );
+                      var bricklyWorkspace = GUISTATE_C.getBricklyWorkspace();
+                      var blocks = bricklyWorkspace.getAllBlocks();
+                      for ( var i = 0; i < blocks.length; i++ ) {
+                          if ( blocks[i].type === "robBrick_ORB-Brick" ) {
+                              var field = blocks[i].getField( "VAR" );
+                              field.setValue( data.brickname.replace( /\s/g, '' ) );
+                              blocks[i].render();
+                              var dom = Blockly.Xml.workspaceToDom( bricklyWorkspace );
+                              var xml = Blockly.Xml.domToText( dom );
+                              GUISTATE_C.setConfigurationXML( xml );
+                              break;
+                          }
+                      }
+                  } else if ( data.type == "connect" && data.state == "disconnected" ) {
+                      orb.update( data );
+                      if ( interpreter != undefined ) {
+                          interpreter.terminate();
+                      }
+                      var bricklyWorkspace = GUISTATE_C.getBricklyWorkspace();
+                      var blocks = bricklyWorkspace.getAllBlocks();
+                      for ( var i = 0; i < blocks.length; i++ ) {
+                          if ( blocks[i].type === "robBrick_ORB-Brick" ) {
+                              var field = blocks[i].getField( "VAR" );
+                              field.setValue( Blockly.Msg.ROBOT_DEFAULT_NAME_ORB || Blockly.Msg.ROBOT_DEFAULT_NAME || "Brick1" );
+                              blocks[i].render();
+                              var dom = Blockly.Xml.workspaceToDom( bricklyWorkspace );
+                              var xml = Blockly.Xml.domToText( dom );
+                              GUISTATE_C.setConfigurationXML( xml );
+                              break;
+                          }
+                      }
+                      GUISTATE_C.setConnectionState( "error" );
+                  } else {
+                      orb.update( data );
+                  }
+              } else {
                 throw "invalid arguments";
             }
         } catch (error) {
@@ -116,13 +168,30 @@ define(['exports', 'guiState.controller', 'interpreter.interpreter', 'interprete
             case "wedo":
                 theRobotBehaviour = new WEDO_B.RobotWeDoBehaviour(jsToAppInterface, jsToDisplay);
             // TODO: introduce here new robots and behaviours and add them to the dependencies on top of the file
+            case "orb" :
+                theRobotBehaviour= new ORB_R.RobotOrbBehaviour(jsToAppInterface, jsToDisplay);
             default:
                 LOG.error("Webview: no robot behaviour for " + GUISTATE_C.getRobot() + " available!");
         }
     }
+
+    function getOrbInterpreter( program ) {
+        interpreter = new WEDO_I.Interpreter( program, orb, callbackOnTermination );
+        return interpreter;
+    }
+    exports.getOrbInterpreter = getOrbInterpreter;
+
+    function getWeDo() {
+        return wedo;
+    }
     exports.setRobotBehaviour = setRobotBehaviour;
 
-    function jsToAppInterface(jsonData) {
+    function getOrb() {
+        return orb;
+    }
+    exports.getOrb = getOrb;
+
+    function jsToAppInterface( jsonData ) {
         try {
             if (webViewType === "Android") {
                 OpenRoberta.jsToAppInterface(JSON.stringify(jsonData));
