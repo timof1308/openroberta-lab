@@ -219,8 +219,9 @@ public class OrbStackMachineVisitor<V> extends AbstractStackMachineVisitor<V> im
 
     @Override
     public V visitUltrasonicSensor(UltrasonicSensor<V> ultrasonicSensor) {
+        ConfigurationComponent confSensor = getConfigurationComponent(ultrasonicSensor.getPort());
         String mode = ultrasonicSensor.getMode();
-        String port = ultrasonicSensor.getPort();
+        String port = confSensor.getProperty("CONNECTOR");
         JSONObject o = mk(C.GET_SAMPLE).put(C.GET_SAMPLE, C.ULTRASONIC).put(C.PORT, port).put(C.MODE, mode.toLowerCase()).put(C.NAME, "orb");//war ev3, hab geändert
         return app(o);
     }

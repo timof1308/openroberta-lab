@@ -332,7 +332,7 @@ define(["require", "exports", "interpreter.aRobotBehaviour", "interpreter.consta
                     this.btInterfaceFct(cmdConfigToORB);
                     this.btInterfaceFct(cmdPropToORB);
                     //getSensorValue(id)
-                    s.push(getSensorValue(1));
+                    s.push(getSensorValue(port));
                 }
             }
             else {

@@ -93,6 +93,8 @@ require.config({
         'interpreter.aRobotBehaviour': 'app/nepostackmachine/interpreter.aRobotBehaviour',
         'interpreter.robotWeDoBehaviour': 'app/nepostackmachine/interpreter.robotWeDoBehaviour',
         'interpreter.robotOrbBehaviour' : '../app/nepostackmachine/interpreter.robotOrbBehaviour',
+
+        'interpreter.robotOrbBehaviour' : 'app/nepostackmachine/interpreter.robotOrbBehaviour',
         'interpreter.robotSimBehaviour': 'app/nepostackmachine/interpreter.robotSimBehaviour',
         'interpreter.state': 'app/nepostackmachine/interpreter.state',
         'interpreter.util': 'app/nepostackmachine/interpreter.util',
