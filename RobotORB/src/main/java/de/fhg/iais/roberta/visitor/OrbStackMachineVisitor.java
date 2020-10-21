@@ -204,15 +204,17 @@ public class OrbStackMachineVisitor<V> extends AbstractStackMachineVisitor<V> im
 
     @Override
     public V visitTouchSensor(TouchSensor<V> touchSensor) {
-        String port = touchSensor.getPort();
+        ConfigurationComponent confSensor = getConfigurationComponent(touchSensor.getPort());
+        String port = confSensor.getProperty("CONNECTOR");
         JSONObject o = mk(C.GET_SAMPLE).put(C.GET_SAMPLE, C.TOUCH).put(C.PORT, port).put(C.NAME, "orb");
         return app(o);
     }
 
     @Override
     public V visitColorSensor(ColorSensor<V> colorSensor) {
+        ConfigurationComponent confSensor = getConfigurationComponent(colorSensor.getPort());
         String mode = colorSensor.getMode();
-        String port = colorSensor.getPort();
+        String port = confSensor.getProperty("CONNECTOR");
         JSONObject o = mk(C.GET_SAMPLE).put(C.GET_SAMPLE, C.COLOR).put(C.PORT, port).put(C.MODE, mode.toLowerCase()).put(C.NAME, "orb");
         return app(o);
     }
@@ -229,6 +231,17 @@ public class OrbStackMachineVisitor<V> extends AbstractStackMachineVisitor<V> im
     @Override
     public V visitGyroSensor(GyroSensor<V> gyroSensor) {
         ConfigurationComponent confGyroSensor = getConfigurationComponent(gyroSensor.getPort());
+        String mode = gyroSensor.getMode();
+        String port = confGyroSensor.getProperty("CONNECTOR");
+        String slot = gyroSensor.getSlot().toString(); // the mode is in the slot?
+        JSONObject o = mk(C.GET_SAMPLE).put(C.GET_SAMPLE, C.GYRO).put(C.PORT, port).put(C.MODE, mode.toLowerCase()).put(C.NAME, "orb");//war ev3, hab geändert
+        return app(o);
+    }
+
+    /*
+    @Override
+    public V visitGyroSensor(GyroSensor<V> gyroSensor) {
+        ConfigurationComponent confGyroSensor = getConfigurationComponent(gyroSensor.getPort());
         String brickName = confGyroSensor.getProperty("VAR");
         String port = confGyroSensor.getProperty("CONNECTOR");
         String slot = gyroSensor.getSlot().toString(); // the mode is in the slot?
@@ -238,7 +251,7 @@ public class OrbStackMachineVisitor<V> extends AbstractStackMachineVisitor<V> im
         } else {
             throw new DbcException("operation not supported");
         }
-    }
+    }*/
 
     @Override
     public V visitTimerSensor(TimerSensor<V> timerSensor) {
