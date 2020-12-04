@@ -1,4 +1,5 @@
 package de.fhg.iais.roberta.components;
+
 import java.util.Map;
 
 import de.fhg.iais.roberta.blockly.generated.Block;
@@ -28,8 +29,11 @@ public final class OrbConfigurationComponent extends ConfigurationComponent {
     public Block astToBlock() {
         Block destination = new Block();
         Ast2JaxbHelper.setBasicProperties(this, destination);
-        Ast2JaxbHelper.addField(destination, "VAR", this.userDefinedPortName);
-        this.componentProperties.forEach((key, value) -> Ast2JaxbHelper.addField(destination, key, value));
+        //Modified due to error, check later
+        //Ast2JaxbHelper.addField(destination, "VAR", this.userDefinedPortName);
+        Ast2JaxbHelper.addField(destination, "VAR", this.getUserDefinedPortName());
+        //this.componentProperties.forEach((key, value) -> Ast2JaxbHelper.addField(destination, key, value));
+        this.getComponentProperties().forEach((key, value) -> Ast2JaxbHelper.addField(destination, key, value));
         return destination;
     }
 }
