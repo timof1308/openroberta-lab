@@ -1,3 +1,13 @@
+/*
+-------------------------------------------------------------------------
+
+This a typescript source file stored in openroberta-lab/TypeScriptSources
+It gets compiled to openroberta-lab/OpenRobertaServer/staticResources/js
+
+DO NOT EDIT THIS IN openroberta-lab/OpenRobertaServer/staticResources/js !
+
+-------------------------------------------------------------------------
+*/
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||

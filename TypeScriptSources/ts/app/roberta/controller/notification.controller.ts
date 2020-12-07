@@ -1,3 +1,14 @@
+/*
+-------------------------------------------------------------------------
+
+This a typescript source file stored in openroberta-lab/TypeScriptSources 
+It gets compiled to openroberta-lab/OpenRobertaServer/staticResources/js
+
+DO NOT EDIT THIS IN openroberta-lab/OpenRobertaServer/staticResources/js !
+
+-------------------------------------------------------------------------
+*/
+
 import * as guiStateModel from "guiState.model";
 import * as guiStateController from "guiState.controller";
 import * as notificationModel from "notification.model";
