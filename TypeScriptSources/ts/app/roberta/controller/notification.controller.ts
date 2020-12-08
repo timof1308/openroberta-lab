@@ -30,7 +30,7 @@ const defaultElementMarkerTime = 5 * 60 * 1000;
 const defaultPopupTime = 20 * 1000;
 const defaultStartScreenTime = undefined;
 
-let activeNotifications : NotificationProcessor[] = []
+let activeNotifications: NotificationProcessor[] = []
 
 function loadAndInitNotifications() {
     notificationModel.getNotifications(result => {
@@ -38,7 +38,7 @@ function loadAndInitNotifications() {
     });
 }
 
-export function init () {
+export function init() {
     initNotificationModal();
     loadAndInitNotifications();
 
@@ -54,7 +54,7 @@ export function reloadNotifications() {
 /*----------- NOTIFICATION MODAL -----------*/
 
 export function showNotificationModal() {
-    notificationModel.getNotifications(function (result) {
+    notificationModel.getNotifications(function(result) {
         setFileDownloadContent(result.notifications);
         $('#modal-notifications').modal("show");
     });
@@ -77,7 +77,7 @@ function initNotificationModal() {
     $notificationForm.on('submit', e => {
         e.preventDefault();
         readFileInputField(fileContent => {
-            notificationModel.postNotifications(fileContent, function (restResponse) {
+            notificationModel.postNotifications(fileContent, function(restResponse) {
                 if (restResponse.rc === "ok" && restResponse.message === "ORA_NOTIFICATION_SUCCESS") {
                     $notificationForm[0].reset();
                     showAlertInNotificationModal("success", "The notifications were transmitted successfully");
@@ -125,7 +125,7 @@ function removeNotifications() {
     activeNotifications = [];
 }
 
-function initNotifications(notificationSpecifications) : NotificationProcessor[] {
+function initNotifications(notificationSpecifications): NotificationProcessor[] {
     return notificationSpecifications.map(specification => new NotificationProcessor(specification));
 }
 
@@ -325,9 +325,9 @@ interface StartScreenSpec {
 }
 
 interface PopupNotificationSpec {
-    time? : number;
-    title : string;
-    content : string;
+    time?: number;
+    title: string;
+    content: string;
 }
 
 abstract class NotificationState {
@@ -373,7 +373,7 @@ abstract class NotificationState {
     }
 }
 
-class PopupNotificationState extends NotificationState{
+class PopupNotificationState extends NotificationState {
     private readonly _title: any;
     private readonly _content: any;
 
@@ -402,7 +402,7 @@ class ElementMarkerState extends NotificationState {
     private $badge: any;
     private $element: any;
 
-    constructor(elementMarker: ElementMarkerSpec)  {
+    constructor(elementMarker: ElementMarkerSpec) {
         super(elementMarker.time || defaultElementMarkerTime);
         this._content = parseLocalized(elementMarker.content);
         this.$element = $(parseSelector(elementMarker));
@@ -413,7 +413,7 @@ class ElementMarkerState extends NotificationState {
         if (this.$element.length) {
             this.$badge
                 .fadeOut(fadingDuration)
-                .queue(function () {
+                .queue(function() {
                     $(this).remove();
                 })
         }
@@ -428,7 +428,7 @@ class ElementMarkerState extends NotificationState {
     }
 }
 
-class StartScreenNotificationState extends NotificationState{
+class StartScreenNotificationState extends NotificationState {
     private readonly content: string;
     private $element;
     private $startupMessage = $("#startup-message-statustext");
@@ -448,7 +448,7 @@ class StartScreenNotificationState extends NotificationState{
     protected hideAction() {
         this.$element
             .slideUp(fadingDuration)
-            .queue(function () {
+            .queue(function() {
                 $(this).remove();
             })
     }
