@@ -121,7 +121,7 @@ public class ConfigurationComponent extends Phrase<Void> {
         }
     }
 
-    public String getPosition(String block) {
+    public String getColourPosition(String block) {
         switch ( getProperty(block) ) {
             case SC.FRONT:
                 return SC.FRONT;
