@@ -127,8 +127,4 @@ public interface SC {
     String LED_BUILTIN = "LED_BUILTIN";
     String GREEN = "GREEN";
     String BLUE = "BLUE";
-
-    String FRONT = "FRONT";
-    String BACK = "BACK";
-    String SENSOR_POSITION = "SENSOR_POSITION";
 }
