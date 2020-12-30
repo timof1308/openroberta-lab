@@ -10,7 +10,7 @@ define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'g
      * 
      * @class
      */
-    function Ev3(pose, configuration, positionConfiguration, num, robotBehaviour) {
+    function Ev3(pose, configuration, sensorSettings, num, robotBehaviour) {
         Robot.call(this, pose, robotBehaviour);
         var that = this;
         this.id = num || 0;
@@ -78,7 +78,9 @@ define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'g
             r: 5,
             colorValue: 0,
             lightValue: 0,
-            color: 'grey'
+            color: 'grey',
+            position: 'FRONT',
+            alignment: 'DOWN'
         };
         this.touchSensor = {
             x: 0,
@@ -142,8 +144,10 @@ define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'g
                             tmpSensor[prop] = colorSensorProto[prop];
                         }
                     }
+                    tmpSensor.position = sensorSettings["positionConfiguration"][c];
+                    tmpSensor.alignment = sensorSettings["alignmentConfiguration"][c];
                     // TODO: FIX POSITIONS FOR MULTIPLE SENSORS
-                    switch (positionConfiguration[c]) {
+                    switch (sensorSettings["positionConfiguration"][c]) {
                         case("RIGHT"):
                             tmpSensor.x = -15
                             tmpSensor.y = -order * 10 + (5 * (countColor - 1));
@@ -160,7 +164,7 @@ define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'g
                             tmpSensor.x = -order * 10 + (5 * (countColor - 1));
                             break;
                     }
-                    console.log("position of " + configuration[c] + "-sensor -> " + positionConfiguration[c]);
+                    console.log("position of " + configuration[c] + "-sensor -> " + tmpSensor.position + " and alignment --> " + tmpSensor.alignment);
                     console.log("sensor positions: ", tmpSensor);
                     this.colorSensor[c] = tmpSensor;
                     break;
