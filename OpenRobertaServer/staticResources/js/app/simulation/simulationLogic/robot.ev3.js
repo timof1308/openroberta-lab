@@ -77,7 +77,8 @@ define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'g
             r: 5,
             colorValue: 0,
             lightValue: 0,
-            color: 'grey'
+            color: 'grey',
+            position: "FRONT"
         };
         this.touchSensor = {
             x: 0,
@@ -160,6 +161,7 @@ define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'g
                         }
                     }
                     console.log("positionConfiguration: ", positionConfiguration);
+                    tmpSensor.position = positionConfiguration[c];
                     switch (positionConfiguration[c]) {
                         case("RIGHT"):
                             cColorR++;
