@@ -96,8 +96,10 @@ define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'g
         };
         var countTouch, countGyro, countColor, countUltra;
         countTouch = countGyro = countColor = countUltra = 0;
-        countColorR = countColorL = countColorB = countColorF = 0; // Anzahl der rechten/linken/vorderen/hinteren Sensoren
-        cColorR = cColorL = cColorB = cColorF = 0; // Der wievielte rechte/linke/vordere/hintere es ist Sensor
+        var countColorR, countColorL, countColorB, countColorF; // Count color sensors on each position
+        countColorR = countColorL = countColorB = countColorF = 0;
+        var orderColorR, orderColorL, orderColorB, orderColorF; // Set order for color sensors on each position
+        orderColorR = orderColorL = orderColorB = orderColorF = 0;
         for (var c in configuration) {
             switch (configuration[c]) {
                 case "TOUCH":
@@ -108,7 +110,6 @@ define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'g
                     break;
                 case "COLOR":
                 case "LIGHT":
-                    // Hier beginnt das Zählen der Positionen
                     switch (positionConfiguration[c]) {
                         case("RIGHT"):
                             countColorR++;
@@ -119,11 +120,10 @@ define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'g
                         case("BACK"):
                             countColorB++;
                             break;
-                        default:
+                        default: // FRONT
                             countColorF++;
                             break;
                     }
-                    // Hier endet das Zählen der Positionen
                     countColor++;
                     break;
                 case "ULTRASONIC":
@@ -153,38 +153,34 @@ define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'g
                     break;
                 case ("COLOR"):
                 case ("LIGHT"):
-                    var order = Object.keys(this.colorSensor).length;
                     var tmpSensor = {};
                     for (var prop in colorSensorProto) {
                         if (colorSensorProto.hasOwnProperty(prop)) {
                             tmpSensor[prop] = colorSensorProto[prop];
                         }
                     }
-                    console.log("positionConfiguration: ", positionConfiguration);
                     tmpSensor.position = positionConfiguration[c];
                     switch (positionConfiguration[c]) {
                         case("RIGHT"):
-                            cColorR++;
+                            orderColorR++;
                             tmpSensor.x = -15
-                            tmpSensor.y = -cColorR * 10 + (5 * (countColorR - 1))+10;
+                            tmpSensor.y = -orderColorR * 10 + (5 * (countColorR-1)) + 10;
                             break;
                         case("LEFT"):
-                            cColorL++;
+                            orderColorL++;
                             tmpSensor.x = 15
-                            tmpSensor.y = -cColorL * 10 + (5 * (countColorL - 1))+10;
+                            tmpSensor.y = -orderColorL * 10 + (5 * (countColorL-1))+10;
                             break;
                         case("BACK"):
-                            cColorB++;
-                            tmpSensor.x = -cColorB * 10 + (5 * (countColorB - 1))+10;
+                            orderColorB++;
+                            tmpSensor.x = -orderColorB * 10 + (5 * (countColorB-1))+10;
                             tmpSensor.y = 25
                             break;
                         default: // FRONT
-                            cColorF++;
-                            tmpSensor.x = -cColorF * 10 + (5 * (countColorF - 1))+10;
+                            orderColorF++;
+                            tmpSensor.x = -orderColorF * 10 + (5 * (countColorF-1))+10;
                             break;
                     }
-                    console.log("position of " + configuration[c] + "-sensor -> " + positionConfiguration[c]);
-                    console.log("sensor positions: ", tmpSensor);
                     this.colorSensor[c] = tmpSensor;
                     break;
                 case ("ULTRASONIC"):
