@@ -1,5 +1,4 @@
 define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'guiState.controller'], function(SIM, C, Robot, GUISTATE_C) {
-
     /**
      * Creates a new Ev3 for a simulation.
      * 
@@ -98,6 +97,10 @@ define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'g
         };
         var countTouch, countGyro, countColor, countUltra;
         countTouch = countGyro = countColor = countUltra = 0;
+        var countColorR, countColorL, countColorB, countColorF; // Count color sensors on each position
+        countColorR = countColorL = countColorB = countColorF = 0;
+        var orderColorR, orderColorL, orderColorB, orderColorF; // Set order for color sensors on each position
+        orderColorR = orderColorL = orderColorB = orderColorF = 0;
         for (var c in configuration) {
             switch (configuration[c]) {
                 case "TOUCH":
@@ -108,6 +111,20 @@ define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'g
                     break;
                 case "COLOR":
                 case "LIGHT":
+                    switch (positionConfiguration[c]) {
+                        case("RIGHT"):
+                            countColorR++;
+                            break;
+                        case("LEFT"):
+                            countColorL++;
+                            break;
+                        case("BACK"):
+                            countColorB++;
+                            break;
+                        default: // FRONT
+                            countColorF++;
+                            break;
+                    }
                     countColor++;
                     break;
                 case "ULTRASONIC":
@@ -137,7 +154,6 @@ define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'g
                     break;
                 case ("COLOR"):
                 case ("LIGHT"):
-                    var order = Object.keys(this.colorSensor).length;
                     var tmpSensor = {};
                     for (var prop in colorSensorProto) {
                         if (colorSensorProto.hasOwnProperty(prop)) {
@@ -146,26 +162,27 @@ define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'g
                     }
                     tmpSensor.position = sensorSettings["positionConfiguration"][c];
                     tmpSensor.alignment = sensorSettings["alignmentConfiguration"][c];
-                    // TODO: FIX POSITIONS FOR MULTIPLE SENSORS
                     switch (sensorSettings["positionConfiguration"][c]) {
                         case("RIGHT"):
+                            orderColorR++;
                             tmpSensor.x = -15
-                            tmpSensor.y = -order * 10 + (5 * (countColor - 1));
+                            tmpSensor.y = -orderColorR * 10 + (5 * (countColorR-1)) + 10;
                             break;
                         case("LEFT"):
+                            orderColorL++;
                             tmpSensor.x = 15
-                            tmpSensor.y = -order * 10 + (5 * (countColor - 1));
+                            tmpSensor.y = -orderColorL * 10 + (5 * (countColorL-1))+10;
                             break;
                         case("BACK"):
-                            tmpSensor.x = -order * 10 + (5 * (countColor - 1));
-                            tmpSensor.y = 20
+                            orderColorB++;
+                            tmpSensor.x = -orderColorB * 10 + (5 * (countColorB-1))+10;
+                            tmpSensor.y = 25
                             break;
                         default: // FRONT
-                            tmpSensor.x = -order * 10 + (5 * (countColor - 1));
+                            orderColorF++;
+                            tmpSensor.x = -orderColorF * 10 + (5 * (countColorF-1))+10;
                             break;
                     }
-                    console.log("position of " + configuration[c] + "-sensor -> " + tmpSensor.position + " and alignment --> " + tmpSensor.alignment);
-                    console.log("sensor positions: ", tmpSensor);
                     this.colorSensor[c] = tmpSensor;
                     break;
                 case ("ULTRASONIC"):
