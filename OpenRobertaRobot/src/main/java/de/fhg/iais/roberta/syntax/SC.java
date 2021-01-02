@@ -132,6 +132,4 @@ public interface SC {
     String FRONT = "FRONT";
     String BACK = "BACK";
     String SENSOR_POSITION = "SENSOR_POSITION";
-    String HORIZONTAL = "HORIZONTAL";
-    String SENSOR_ALIGNMENT = "SENSOR_ALIGNMENT";
 }
