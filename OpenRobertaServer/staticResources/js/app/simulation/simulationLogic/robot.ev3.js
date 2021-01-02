@@ -164,8 +164,6 @@ define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'g
                             tmpSensor.x = -order * 10 + (5 * (countColor - 1));
                             break;
                     }
-                    console.log("position of " + configuration[c] + "-sensor -> " + tmpSensor.position + " and alignment --> " + tmpSensor.alignment);
-                    console.log("sensor positions: ", tmpSensor);
                     this.colorSensor[c] = tmpSensor;
                     break;
                 case ("ULTRASONIC"):
