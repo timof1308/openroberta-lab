@@ -1086,7 +1086,7 @@ define(['exports', 'simulation.scene', 'simulation.math', 'program.controller', 
         }
     }
 
-    function createRobot(reqRobot, configuration, positionConfiguration, num, optYOffset, robotBehaviour) {
+    function createRobot(reqRobot, configuration, sensorSettings, num, optYOffset, robotBehaviour) {
         var yOffset = optYOffset || 0;
         var robot;
         if (currentBackground == 2) {
@@ -1098,7 +1098,7 @@ define(['exports', 'simulation.scene', 'simulation.math', 'program.controller', 
                 yOld: 200 + yOffset,
                 transX: 0,
                 transY: 0
-            }, configuration, positionConfiguration, num, robotBehaviour);
+            }, configuration, sensorSettings, num, robotBehaviour);
             robot.canDraw = false;
         } else if (currentBackground == 3) {
             robot = new reqRobot({
@@ -1109,7 +1109,7 @@ define(['exports', 'simulation.scene', 'simulation.math', 'program.controller', 
                 yOld: 200 + yOffset,
                 transX: 0,
                 transY: 0
-            }, configuration, num, robotBehaviour);
+            }, configuration, sensorSettings, num, robotBehaviour);
             robot.canDraw = true;
             robot.drawColor = "#000000";
             robot.drawWidth = 10;
@@ -1126,7 +1126,7 @@ define(['exports', 'simulation.scene', 'simulation.math', 'program.controller', 
                 yOld: 104 + yOffset,
                 transX: 0,
                 transY: 0
-            }, configuration, num, robotBehaviour);
+            }, configuration, sensorSettings, num, robotBehaviour);
             robot.canDraw = false;
         } else if (currentBackground == 5) {
             robot = new reqRobot({
@@ -1137,7 +1137,7 @@ define(['exports', 'simulation.scene', 'simulation.math', 'program.controller', 
                 yOld: 50 + yOffset,
                 transX: 0,
                 transY: 0
-            }, configuration, num, robotBehaviour);
+            }, configuration, sensorSettings, num, robotBehaviour);
             robot.canDraw = false;
         } else if (currentBackground == 6) {
             var robotY = 440 + yOffset;
@@ -1152,7 +1152,7 @@ define(['exports', 'simulation.scene', 'simulation.math', 'program.controller', 
                 yOld: 440 + yOffset,
                 transX: 0,
                 transY: 0
-            }, configuration, num, robotBehaviour);
+            }, configuration, sensorSettings, num, robotBehaviour);
             robot.canDraw = false;
         } else if (currentBackground == 7) {
             var cx = imgObjectList[currentBackground].width / 2.0 + 10;
@@ -1165,7 +1165,7 @@ define(['exports', 'simulation.scene', 'simulation.math', 'program.controller', 
                 yOld: cy + yOffset,
                 transX: -cx,
                 transY: -cy
-            }, configuration, num, robotBehaviour);
+            }, configuration, sensorSettings, num, robotBehaviour);
             robot.canDraw = true;
             robot.drawColor = "#ffffff";
             robot.drawWidth = 1;
@@ -1180,7 +1180,7 @@ define(['exports', 'simulation.scene', 'simulation.math', 'program.controller', 
                 yOld: cy + yOffset,
                 transX: 0,
                 transY: 0
-            }, configuration, num, robotBehaviour);
+            }, configuration, sensorSettings, num, robotBehaviour);
             robot.canDraw = false;
         }
         return robot;
