@@ -768,8 +768,11 @@ define(['simulation.simulation', 'simulation.math', 'util', 'interpreter.constan
                                 }
                             }
                         }
-
                     }
+                    var num = colors.data.length / 4 - 12; // 12 are outside
+                    red = red / num;
+                    green = green / num;
+                    blue = blue / num;
                     values.color[s] = {};
                     values.light[s] = {};
                     colorSensors[s].colorValue = SIMATH.getColor(SIMATH.rgbToHsv(red, green, blue));

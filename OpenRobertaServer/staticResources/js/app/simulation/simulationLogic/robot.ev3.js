@@ -10,7 +10,7 @@ define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'g
      * 
      * @class
      */
-    function Ev3(pose, configuration, sensorSettings, num, robotBehaviour) {
+    function Ev3(pose, configuration, positionConfiguration, num, robotBehaviour) {
         Robot.call(this, pose, robotBehaviour);
         var that = this;
         this.id = num || 0;
@@ -79,8 +79,7 @@ define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'g
             colorValue: 0,
             lightValue: 0,
             color: 'grey',
-            position: 'FRONT',
-            alignment: 'DOWN'
+            position: "FRONT"
         };
         this.touchSensor = {
             x: 0,
@@ -146,7 +145,6 @@ define(['simulation.simulation', 'interpreter.constants', 'simulation.robot', 'g
                     }
                     tmpSensor.position = sensorSettings["positionConfiguration"][c];
                     tmpSensor.alignment = sensorSettings["alignmentConfiguration"][c];
-                    // TODO: FIX POSITIONS FOR MULTIPLE SENSORS
                     switch (sensorSettings["positionConfiguration"][c]) {
                         case("RIGHT"):
                             tmpSensor.x = -15

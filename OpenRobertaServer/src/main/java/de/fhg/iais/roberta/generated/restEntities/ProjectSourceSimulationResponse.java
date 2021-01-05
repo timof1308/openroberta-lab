@@ -24,8 +24,7 @@ public class ProjectSourceSimulationResponse extends BaseResponse {
     protected Map<String,JSONObject> confAnnos;
     protected JSONObject javaScriptConfiguration;
     protected JSONObject javaScriptPositionConfiguration;
-    protected JSONObject javaScriptAlignmentConfiguration;
-
+    
     /**
      * the response for the /projectWorkflow/sourceSimulation REST request
      */
@@ -146,8 +145,6 @@ public class ProjectSourceSimulationResponse extends BaseResponse {
                     setJavaScriptConfiguration(jsonO.getJSONObject(key));
                 } else if ("javaScriptPositionConfiguration".equals(key)) {
                     setJavaScriptPositionConfiguration(jsonO.getJSONObject(key));
-                } else if ("javaScriptAlignmentConfiguration".equals(key)) {
-                    setJavaScriptAlignmentConfiguration(jsonO.getJSONObject(key));
                 } else {
                     throw new RuntimeException("JSON parse error. Found invalid key: " + key + " in " + jsonO);
                 }
@@ -209,9 +206,6 @@ public class ProjectSourceSimulationResponse extends BaseResponse {
         }
         if ( javaScriptPositionConfiguration == null) {
             _message = "required property javaScriptPositionConfiguration of ProjectSourceSimulationResponse-object is not set: " + toString();
-        }
-        if ( javaScriptAlignmentConfiguration == null) {
-            _message = "required property javaScriptAlignmentConfiguration of ProjectSourceSimulationResponse-object is not set: " + toString();
         }
         if ( _message != null ) {
             this.immutable = false;
@@ -356,17 +350,6 @@ public class ProjectSourceSimulationResponse extends BaseResponse {
         this.javaScriptPositionConfiguration = javaScriptPositionConfiguration;
         return this;
     }
-
-    /**
-     * SET javaScriptAlignmentConfiguration. Object must be mutable.
-     */
-    public ProjectSourceSimulationResponse setJavaScriptAlignmentConfiguration(JSONObject javaScriptAlignmentConfiguration) {
-        if (this.immutable) {
-            throw new RuntimeException("javaScriptAlignmentConfiguration assigned to an immutable object: " + toString());
-        }
-        this.javaScriptAlignmentConfiguration = javaScriptAlignmentConfiguration;
-        return this;
-    }
     
     /**
      * generates a JSON-object from an immutable bean.<br>
@@ -434,7 +417,6 @@ public class ProjectSourceSimulationResponse extends BaseResponse {
             }
             jsonO.put("javaScriptConfiguration", this.javaScriptConfiguration);
             jsonO.put("javaScriptPositionConfiguration", this.javaScriptPositionConfiguration);
-            jsonO.put("javaScriptAlignmentConfiguration", this.javaScriptAlignmentConfiguration);
         } catch (JSONException e) {
             throw new RuntimeException("JSON unparse error when unparsing: " + this, e);
         }
@@ -443,7 +425,7 @@ public class ProjectSourceSimulationResponse extends BaseResponse {
     
     @Override
     public String toString() {
-        return "ProjectSourceSimulationResponse [immutable=" + this.immutable + ", cmd=" + this.cmd + ", rc=" + this.rc + ", message=" + this.message + ", cause=" + this.cause + ", parameters=" + this.parameters + ", initToken=" + this.initToken + ", serverTime=" + this.serverTime + ", serverVersion=" + this.serverVersion + ", robotWait=" + this.robotWait + ", robotBattery=" + this.robotBattery + ", robotName=" + this.robotName + ", robotVersion=" + this.robotVersion + ", robotFirmwareName=" + this.robotFirmwareName + ", robotSensorvalues=" + this.robotSensorvalues + ", robotNepoexitvalue=" + this.robotNepoexitvalue + ", robotState=" + this.robotState + ", notificationsAvailable=" + this.notificationsAvailable + ", javaScriptProgram=" + this.javaScriptProgram + ", fileExtension=" + this.fileExtension + ", progXML=" + this.progXML + ", confAnnos=" + this.confAnnos + ", javaScriptConfiguration=" + this.javaScriptConfiguration  + ", javaScriptPositionConfiguration=" + this.javaScriptPositionConfiguration  + ", javaScriptAlignmentConfiguration=" + this.javaScriptAlignmentConfiguration + " ]";
+        return "ProjectSourceSimulationResponse [immutable=" + this.immutable + ", cmd=" + this.cmd + ", rc=" + this.rc + ", message=" + this.message + ", cause=" + this.cause + ", parameters=" + this.parameters + ", initToken=" + this.initToken + ", serverTime=" + this.serverTime + ", serverVersion=" + this.serverVersion + ", robotWait=" + this.robotWait + ", robotBattery=" + this.robotBattery + ", robotName=" + this.robotName + ", robotVersion=" + this.robotVersion + ", robotFirmwareName=" + this.robotFirmwareName + ", robotSensorvalues=" + this.robotSensorvalues + ", robotNepoexitvalue=" + this.robotNepoexitvalue + ", robotState=" + this.robotState + ", notificationsAvailable=" + this.notificationsAvailable + ", javaScriptProgram=" + this.javaScriptProgram + ", fileExtension=" + this.fileExtension + ", progXML=" + this.progXML + ", confAnnos=" + this.confAnnos + ", javaScriptConfiguration=" + this.javaScriptConfiguration  + ", javaScriptPositionConfiguration=" + this.javaScriptPositionConfiguration+ " ]";
     }
     @Override
     public int hashCode() {
